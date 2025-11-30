@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: logging
+  name: log-generator-ahfu
+  labels:
+    app: log-generator-ahfu
+    app.kubernetes.io/component: monitoring
+    app.kubernetes.io/instance: log-generator-ahfu
+    app.kubernetes.io/name: log-generator-ahfu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: log-generator-ahfu
+  template:
+    metadata:
+      labels:
+        app: log-generator-ahfu
+    spec:
+      containers:
+        - name: log-generator-ahfu
+          image: docker.io/ahfuzhang/log-generator:latest
+          imagePullPolicy: Always
+          command: ["/usr/local/bin/log-generator", "--batch_bytes=512k", "--sleep_ms=1"]
+          resources:
+            limits:
+              cpu: "1"
+              memory: "256Mi"
+            requests:
+              cpu: "1"
+              memory: "256Mi"
