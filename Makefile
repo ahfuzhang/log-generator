@@ -1,4 +1,4 @@
-IMAGE ?= log-generator
+IMAGE ?= log-generator:latest
 
 .PHONY: docker-build
 docker-build:
@@ -6,12 +6,12 @@ docker-build:
 
 .PHONY: docker-run
 docker-run:
-	docker run --rm -it ahfuzhang/log-generator --batch_bytes=64k --sleep_ms=100
+	docker run --rm -it ahfuzhang/log-generator --batch_bytes=64k --sleep_ms=100 --output=stdout
 
 .PHONY: docker-push
 docker-push:
-	docker tag $(IMAGE) ahfuzhang/log-generator:v0.2
-	docker push ahfuzhang/log-generator:v0.2
+	docker tag $(IMAGE) ahfuzhang/log-generator:latest
+	docker push ahfuzhang/log-generator:latest
 
 .PHONY: build-linux
 build-linux:
